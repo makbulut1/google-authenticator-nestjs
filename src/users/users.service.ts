@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { User } from "./entities/user.entity";
 
 @Injectable()
@@ -10,7 +10,7 @@ export class UsersService {
       username: 'makbulut',
       password: 'password',
       twoFactorAuthenticationSecret: null,
-      isTwoFactorAuthenticationEnabled: false,
+      isTwoFactorAuthenticationEnabled: null,
     },
     {
       userId: 2,
@@ -18,7 +18,7 @@ export class UsersService {
       username: 'saozcan',
       password: 'password',
       twoFactorAuthenticationSecret: null,
-      isTwoFactorAuthenticationEnabled: false,
+      isTwoFactorAuthenticationEnabled: null,
     },
   ];
 
@@ -29,8 +29,8 @@ export class UsersService {
   async setTwoFactorAuthenticationSecret(secret: string, userId: number) {
     this.users.find(user => user.userId === userId).twoFactorAuthenticationSecret = secret;
   }
-
+  
   async turnOnTwoFactorAuthentication(userId: number) {
-    this.users.find(user => user.userId === userId).isTwoFactorAuthenticationEnabled = true;
+   const user =  this.users.find(user => user.userId === userId).isTwoFactorAuthenticationEnabled = true;
   }
 }

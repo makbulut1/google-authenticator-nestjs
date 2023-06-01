@@ -37,7 +37,7 @@ import {
 		await this.authenticationService.generateTwoFactorAuthenticationSecret(
 		  request.user,
 		);
-  
+			console.log(request.user.twoFactorAuthenticationSecret);
 	  return response.json(
 		await this.authenticationService.generateQrCodeDataURL(otpAuthUrl),
 	  );
@@ -46,17 +46,18 @@ import {
 	@Post('2fa/turn-on')
 	@UseGuards(JwtAuthGuard)
 	async turnOnTwoFactorAuthentication(@Request() request, @Body() body) {
-	  const isCodeValid =
+		const isCodeValid =
 		this.authenticationService.isTwoFactorAuthenticationCodeValid(
 		  body.twoFactorAuthenticationCode,
 		  request.user,
 		);
-	  if (!isCodeValid) {
-		throw new UnauthorizedException('Wrong authentication code');
-	  }
-	  await this.usersService.turnOnTwoFactorAuthentication(request.user.id);
+	  	if (!isCodeValid) {
+			throw new UnauthorizedException('Wrong authentication code');
+	  	}
+  		await this.usersService.turnOnTwoFactorAuthentication(request.user.userId);
+		return ({"validate":true});
 	}
-  
+	
 	@Post('2fa/authenticate')
 	@HttpCode(200)
 	@UseGuards(JwtAuthGuard)

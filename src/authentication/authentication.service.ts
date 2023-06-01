@@ -56,7 +56,7 @@ export class AuthenticationService {
 
     const otpAuthUrl = authenticator.keyuri(
       user.email,
-      'AUTH_APP_NAME',
+      'Transcendence Pong',
       secret,
     );
 
